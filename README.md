@@ -9,15 +9,15 @@ Benchmarks for Event-driven Vision and Computer Vision are significantly differe
 
 The DAVIS240b sensor is mounted on a stereo rig with a Microsoft Kinect Sensor that provides the RGB image and the depth map of the scene. The stereo rig is mounted on a Pan Tilt Unit (PTU-46-17P70T by FLIR Motion Control Systems). Finally, the Pan Tilt Unit is on-board a Pioneer 3DX Mobile Robot. The PTU controls the pan and tilt angles and angular velocities, while the Pioneer 3DX Mobile Robot is in control of the direction of translation and the speed. There are ROS (Robot Operating System) packages available for the PTU and the Pioneer 3DX mobile robot. Our dataset provides the following:
 
-	-  The 3D motion parameters: 3D translation of the camera and 3D pose}. They are provided by the PTU and the Pioneer Mobile Robot. Assuming that their coordinate centers are the same, they have to be calibrated with respect to the DAVIS coordinates.
- 	-  The image depth. It is obtained by the Microsoft Kinect Sensor (RGB-D sensor). A stereo calibration to register the Kinect depth to the DAVIS camera coordinates is required.
-	-  The 2D motion flow field ground-truth. Using the 3D motion parameters and the depth from the DAVIS coordinate system, the 2D motion flow field ground-truth of the scene is reconstructed.
+	*  The 3D motion parameters: 3D translation of the camera and 3D pose}. They are provided by the PTU and the Pioneer Mobile Robot. Assuming that their coordinate centers are the same, they have to be calibrated with respect to the DAVIS coordinates.
+ 	*  The image depth. It is obtained by the Microsoft Kinect Sensor (RGB-D sensor). A stereo calibration to register the Kinect depth to the DAVIS camera coordinates is required.
+	*  The 2D motion flow field ground-truth. Using the 3D motion parameters and the depth from the DAVIS coordinate system, the 2D motion flow field ground-truth of the scene is reconstructed.
 
 The tasks implemented in this repository are:
 
-	- Calibration of DAVIS and RGB-D sensor
-	- Calibration of DAVIS and PTU
-	- Generating 2D motion flow field
+	* Calibration of DAVIS and RGB-D sensor
+	* Calibration of DAVIS and PTU
+	* Generating 2D motion flow field
 
 ## More documentation ##
 
@@ -38,7 +38,7 @@ Some additional information is available at:
 http://atcproyectos.ugr.es/realtimeasoc/protected/evbench.html
 
 Please report problems, bugs, or suggestions to
-fbarranco__at__ugr__dot__es (Replace __at__ by @ and __dot__ by .).
+fbarranco_at_ugr_dot_es (Replace _at_ by @ and _dot_ by .).
 
 Copyright (C) 2015 Francisco Barranco, 11/18/2015, University of Granada.
 
