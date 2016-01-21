@@ -1,11 +1,28 @@
+% modifyImageAccPanTiltWithRealData
+%
+% DESCRIPTION
+%   This script modifies the image in the original geometry of the camera to a new 
+%	camera configuration. Please, take into account that this processing only works
+%	when all the objects in the scene are in the same plane, since there is no information
+%	of the real 3D position of the objects in the scene. The values required are read from 
+%	.mat files
+%
+%   Copyright (C) 2015  Francisco Barranco, 01/12/2015, Universidad de Granada.
+%   License, GNU GPL, free software, without any warranty.
+% 
+
 % Apply transformation to original image according to the camera - PTU calibration
 % 
 
 % angle_pan = 0;
 % angle_tilt = -5*pi/180;
 
-load('worksp_ptu_calib', 'r_pan', 'r_tilt', 'v_pan', 'v_tilt','w_pan', 'w_tilt');
-load('~/WORK/DAVIS/worksp', 'stereoParams'); % This is from the stereo calibration in ~/WORK/DAVIS/exp3.m between Davis and Kinect
+% Instead of setting values manually, we are reading them from the files after computing them
+%load('worksp_ptu_calib', 'r_pan', 'r_tilt', 'v_pan', 'v_tilt','w_pan', 'w_tilt'); % This is computed after the minimization 
+%load('~/WORK/DAVIS/worksp', 'stereoParams'); % This is from the stereo calibration in ~/WORK/DAVIS/exp3.m between Davis and Kinect
+load('./DATA/matfiles/worksp_ptu_calib', 'r_pan', 'r_tilt', 'v_pan', 'v_tilt','w_pan', 'w_tilt'); % This is computed after the minimization 
+load('./DATA/matfiles/worksp', 'stereoParams'); % This is from the stereo calibration in ./additional/exp3.m between Davis and Kinect
+
 
 cameraParams = stereoParams.CameraParameters1; % Davis is camera 1
 
@@ -27,8 +44,11 @@ angle_tilt = -5*pi/180;
 % image_base = imresize(rgb2gray(imread('image_base.bmp')), [480 640]);
 % image_m5tilt = imresize(rgb2gray(imread('image_m5tilt.bmp')), [480 640]);
 
-image_base = imread('~/Desktop/PTU/output/pan/frame_00001.pgm');
-image_m5tilt = imread('~/Desktop/PTU/output/tilt/frame_00120.pgm');
+%image_base = imread('../PTU/output/pan/frame_00001.pgm');
+%image_m5tilt = imread('../PTU/output/tilt/frame_00120.pgm');
+
+image_base = imread('./DATA/PTU/output/pan/frame_00001.pgm');
+image_m5tilt = imread('./DATA/PTU/output/tilt/frame_00120.pgm');
 
 
 % Compute the translation and rotation
@@ -70,8 +90,6 @@ M_tilt(4,:) = [0 0 0 1];
 % UV(:,:,1)=u_res-XX; UV(:,:,2)=v_res-YY;
 % B = imwarp(image_base, UV);
 
-
-
 % From 2D to 3D
 
 %%
@@ -99,8 +117,6 @@ v = floor((cameraParams.FocalLength(2)*Y_trans).*inv_Z + cameraParams.PrincipalP
 
 UV(:,:,1)=u-uu; UV(:,:,2)=v-vv;
 B = imwarp(image_base, UV);
-
-
 
 % UV(:,:,1)=u_davis-XX; UV(:,:,2)=v_davis-YY;
 % B = imwarp(image_base, UV);

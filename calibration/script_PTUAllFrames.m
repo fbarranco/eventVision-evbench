@@ -1,4 +1,15 @@
-pathname = '/home/fran/Desktop/PTU';
+% script_PTUAllFrames
+%             
+% DESCRIPTION
+%   The function reads all the aedat files from the folder with the DAVIS data 
+%   and extract the frame information for doing the calibration 
+%
+%   Copyright (C) 2015  Francisco Barranco, 01/12/2015, Universidad de Granada.
+%   License, GNU GPL, free software, without any warranty.
+
+
+%pathname = '/home/fran/Desktop/PTU';
+pathname = './DATA/PTU';
 names_pan = {'img_0_0', 'img_1_0', 'img_2_0', 'img_3_0', 'img_4_0', 'img_5_0'...
     'img_m1_0', 'img_m2_0', 'img_m3_0', 'img_m4_0', 'img_m5_0'}; % 11 elements
 
@@ -22,7 +33,8 @@ for kk =1:numel(subpathnames_pan)
 end
 
 
-pathname = '/home/fran/Desktop/PTU';
+%pathname = '/home/fran/Desktop/PTU';
+pathname = './DATA/PTU';
 
 % % The baseline (0,0) is in names_pan
 names_tilt = {'img_0_1', 'img_0_2', 'img_0_3', 'img_0_4', 'img_0_5'...

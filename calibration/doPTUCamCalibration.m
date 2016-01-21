@@ -1,3 +1,15 @@
+% doPTUCamCalibration
+%             
+% DESCRIPTION
+%   The script reads all parameters for the different combinations of pan and tilt.
+%   The parameters are the result of the calibration of each combination w.r.t 
+%   the baseline. Then, the minimization to compute the paramters for the calibration 
+%   between the PTU and the camera is done. The results are saved in worksp_ptu_calib.
+%
+%   Copyright (C) 2015  Francisco Barranco, 01/12/2015, Universidad de Granada.
+%   License, GNU GPL, free software, without any warranty.
+
+
 % This script reads the extrinsic calibration parameters from 
 % from PTU - camera calibration and does the minimization for extracting
 % the final transformation between PTU_pan, PTU_tilt and the camera (R_pan,
@@ -6,7 +18,8 @@
 %11 different values
 %-5 -4 -3 -2 -1 0 1 2 3 4 5
 %We are doing from +5 to -5 pan and then, from +5 to -5 tilt (the baseline will be the first)
-load('worksp_ptucam', 'rvecs_pan', 'rvecs_tilt', 'tvecs_pan', 'tvecs_tilt');
+%load('worksp_ptucam', 'rvecs_pan', 'rvecs_tilt', 'tvecs_pan', 'tvecs_tilt');
+load('./DATA/matfiles/worksp_ptucam', 'rvecs_pan', 'rvecs_tilt', 'tvecs_pan', 'tvecs_tilt');
 
 % pan_ptu_angles = [-0.087 -0.07 -0.052 -0.035 -0.017 0.017 0.035 0.052 0.07 0.087];%[-5 -4 -3 -2 -1 1 2 3 4 5]*pi/180;
 % til_ptu_angles = [-0.087 -0.07 -0.052 -0.035 -0.017 0.017 0.035 0.052 0.07 0.087];%[-5 -4 -3 -2 -1 1 2 3 4 5]*pi/180;
@@ -164,9 +177,10 @@ r_tilt = squeeze(r_tilt)';
 v_pan = squeeze(v_pan)';
 v_tilt = squeeze(v_tilt)';
 
-save worksp_ptu_calib;
+%save worksp_ptu_calib;
+save './DATA/matfiles/worksp_ptu_calib';
 
-% How to computer the Translation and Rotation parameters for the pan and
+% How to compute the Translation and Rotation parameters for the pan and
 % tilt: angle_pan or angle_tilt is the angle measured by the PTU unit
 % [T_pan, R_pan] = computeRotationTranslationFromPanTiltAngle(angle_pan, r_pan, v_pan, w_pan);
 % [T_tilt, R_tilt] = computeRotationTranslationFromPanTiltAngle(angle_tilt, r_tilt, v_tilt, w_tilt);

@@ -1,8 +1,22 @@
 function outDepth = registerDepth(inDepth, stereoParams)
-
+% registerDepth
+%   inDepth    		- Input depth to be registed from cam1 to cam2 of the stereo configuration.
+%   stereoParams    - Parameters of the stereo calibration of cam1 and cam2.
+%
+% RETURN
+%   outDepth   		- Output depth registered to the geometry of cam2.
+%             
+% DESCRIPTION
+%   The function registers the depth from the geometry of the camera 1 (cam1 in stereoParams) to
+%	the geometry of camera 2 (cam2 in stereoParams). Stereo Calibration is done with the toolbox
+% 	for stereo calibration available in Matlab.
+%
+%   Copyright (C) 2015  Francisco Barranco, 01/12/2015, Universidad de Granada.
+%   License, GNU GPL, free software, without any warranty.
+%
 
 % This experiment register depth using stereoParams (from stereo
-% calibration) and does it for all the images in the folder
+% calibration)
 
 %add libraries for smoothing and inpainting the Kinect depth
 addpath('./inpaintZ'); 
@@ -91,4 +105,3 @@ filt(mask_nan) = nan; %In this way I keep nan for inpaintZ but get rid of outlie
 distance_tmp = double(filt);
 outDepth = my_inpaintZ(distance_tmp, 10^-1);
 outDepth = outDepth*0.001;% back in meters
-

@@ -1,5 +1,25 @@
 function [f] = calibrationfunH2(w, theta, r, tvecs)
+% calibrationfunH2
+%   w    		- the translation vector.
+%   theta    	- the angle for the rotation.
+%   r   		- The rotation axis.
+%   tvecs    	- The list of translation vectors.
+%
+% RETURN
+%   f  			- The output of the function to be minimized 
+%             
+% DESCRIPTION
+%   The function is passed as an argument for the minimization of the system 
+%	that is build with the parameters. The details are given in the paper:
+% 	A dataset for Visual Navigation with Neuromorphic Methods, 
+%	F. Barranco, C. Fermuller, Y. Aloimonos, T. Delbruck, 
+%	Frontiers in Neuroscience: Neuromorphic Engineering, 1-16, 2015.
+%
+%   Copyright (C) 2015  Francisco Barranco, 01/12/2015, Universidad de Granada.
+%   License, GNU GPL, free software, without any warranty.
+% 
 
+% Possible examples to see if the function works
 %     r = [-0.052 0.997 -0.052];
 %     w = [46.554 312.956 -3.629];
     

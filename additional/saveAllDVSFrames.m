@@ -1,4 +1,25 @@
 function [totalNumFrames] = saveAllDVSFrames(x, y, t, pol, pathname, name, initNumFrame)
+% saveAllDVSFrames
+%   x 			   	- x data from DAVIS events (output of getDVSeventsDavis).
+%   y 			   	- y data from DAVIS events (output of getDVSeventsDavis).
+%   t   		 	- time data from DAVIS events (output of getDVSeventsDavis).
+%   pol 	    	- polarity data from DAVIS events (output of getDVSeventsDavis).
+%   pathname    	- Folder to store the frames.
+%   name   			- Name of the png files.
+%   initNumFrame    - The number of the first png file to be stored.
+%
+% RETURN
+%   totalNumFrames  - The number of the last png file to be stored. 
+%             
+% DESCRIPTION
+%   The function save all DVS data (x,y,time,polarity) from a chunk of data from DAVIS sensor. 
+% 	This saves the gray data in a folder in $pathname/$name_%05.png where the first
+%	frame starts with the number $initNumFrame. All the DVS data are in the structure
+% 	that is the output read with getDVSeventsDavis
+%
+%   Copyright (C) 2015  Francisco Barranco, 01/12/2015, Universidad de Granada.
+%   License, GNU GPL, free software, without any warranty.
+%
 
 DVSW = 240;
 DVSH = 180;

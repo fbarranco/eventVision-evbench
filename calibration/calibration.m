@@ -1,3 +1,13 @@
+% calibration
+%             
+% DESCRIPTION
+%   The script does an example of the calibration in doPTUCamCalibration with 
+%   manually entered data (just a test code) 
+%
+%   Copyright (C) 2015  Francisco Barranco, 01/12/2015, Universidad de Granada.
+%   License, GNU GPL, free software, without any warranty.
+
+
 % This function do the calibration between a camera and the PTU
 %1. Compute the intrinsic parameters for the camera
 %2. The baseline is 0º pan, 0º tilt

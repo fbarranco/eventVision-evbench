@@ -1,4 +1,25 @@
 function [H, f, errorSum] = computeQuadProgParams(theta, r, tvecs)
+% computeQuadProgParams 
+%   theta    	- the angle for the rotation.
+%   r   		- The rotation axis.
+%   tvecs    	- The list of translation vectors.
+%
+% RETURN
+%   f  			- The output function cost to be minimized
+%	H           - The matrix with the 3x3 values of the system
+%	errorSum	- Summation of the error (indep term)
+%             
+% DESCRIPTION
+%   The function is passed as an argument for the minimization of the system 
+%	that is build with the parameters. The method for solving the optimization
+%	problem is quadratic programming. The details are given in the paper:
+% 	A dataset for Visual Navigation with Neuromorphic Methods, 
+%	F. Barranco, C. Fermuller, Y. Aloimonos, T. Delbruck, 
+%	Frontiers in Neuroscience: Neuromorphic Engineering, 1-16, 2015.
+%
+%   Copyright (C) 2015  Francisco Barranco, 01/12/2015, Universidad de Granada.
+%   License, GNU GPL, free software, without any warranty.
+ 
 
     % Compute variables
     N = numel(theta);

@@ -1,9 +1,18 @@
+% preparePTUDataForCalibration
+%             
+% DESCRIPTION
+%   The script extracts the calibration parameters for all the pan-tilt combinations
+%   with respect to the baseline. It saves all the information in worksp_ptucam
+%
+%   Copyright (C) 2015  Francisco Barranco, 01/12/2015, Universidad de Granada.
+%   License, GNU GPL, free software, without any warranty.
+
+
 % % Script: Prepares data for calibration ptu
 % 
 % % First, read the vectors and rotation matrices from calibration
-% % pathname = '/home/fran/WORK/ptu_data';
-% % pathname = '/home/fran/WORK/calibration_data/calib_ptu';
-pathname = '/home/fran/Desktop/PTU';
+%pathname = '/home/fran/Desktop/PTU';
+pathname = './DATA/PTU';
 names_pan = {'img_0_0', 'img_1_0', 'img_2_0', 'img_3_0', 'img_4_0', 'img_5_0'...
     'img_m1_0', 'img_m2_0', 'img_m3_0', 'img_m4_0', 'img_m5_0'}; % 11 elements
 
@@ -294,4 +303,4 @@ end
 % % % % tvecs_tilt = tvectilt_mean;
 
 %%
-save worksp_ptucam;
+save './DATA/matfiles/worksp_ptucam';

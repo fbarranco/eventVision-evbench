@@ -1,6 +1,19 @@
+% modifyImageAccPanTilt
+%
+% DESCRIPTION
+%   This script modifies the image in the original geometry of the camera to a new 
+%	camera configuration. Please, take into account that this processing only works
+%	when all the objects in the scene are in the same plane, since there is no information
+%	of the real 3D position of the objects in the scene.
+%
+%   Copyright (C) 2015  Francisco Barranco, 01/12/2015, Universidad de Granada.
+%   License, GNU GPL, free software, without any warranty.
+% 
+
 % Apply transformation to original image according to the camera - PTU calibration
 % 
 
+% This are example values
 % angle_pan = 0;
 % angle_tilt = -5*pi/180;
 
@@ -19,8 +32,12 @@ cameraParams.PrincipalPoint= [322.5364 246.0242];
      
 
 % read images
-image_base = imresize(rgb2gray(imread('image_base.bmp')), [480 640]);
-image_m5tilt = imresize(rgb2gray(imread('image_m5tilt.bmp')), [480 640]);
+%image_base = imresize(rgb2gray(imread('image_base.bmp')), [480 640]);
+%image_m5tilt = imresize(rgb2gray(imread('image_m5tilt.bmp')), [480 640]);
+
+image_base = imresize(rgb2gray(imread('./DATA/PTU/output/pan/frame_00001.pgm')), [480 640]);
+image_m5tilt = imresize(rgb2gray(imread('./DATA/PTU/output/pan/frame_00120.pgm')), [480 640]);
+
 
 % Compute the translation and rotation
 [Trans_pan, Rot_pan] = computeRotationTranslationFromPanTiltAngle(angle_pan, r_pan, v_pan, w_pan);
