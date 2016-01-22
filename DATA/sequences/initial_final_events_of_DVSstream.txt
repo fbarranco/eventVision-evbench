@@ -1,0 +1,8 @@
+First event and last event from DVS stream used for the sequences:
+seq_0001,seq_0002,seq_0003,seq_0010,seq_0012, seq_0020, seq_0024, seq_0032, seq_0035, seq_0038, seq_0040 
+
+start_elem = [6132778, 9100390, 5536804, 3845256, 5277290, 9903289, 3829447, 4655761, 4592983, 4374308];
+end_elem = [8078366, 13002116, 7761106, 5374537, 8311914, 13271314, 6850222, 6658785, 6869542, 6408659];
+
+TODO: Right now, this is how it is done because we know exactly when the platform starts moving. 
+In the future we should use a synchronization tool between the DAVIS and the KINECT (they have also different frame rates: DAVIS 20 fps, KINECT 9 - 30 fps).
