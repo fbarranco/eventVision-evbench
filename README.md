@@ -37,6 +37,11 @@ Frontiers in Neuroscience: Neuromorphic Engineering, 2015.
 Some additional information is available at:
 http://atcproyectos.ugr.es/realtimeasoc/protected/evbench.html
 
+## Example ##
+
+Please, take a look at reconstructFlow.m for an example that shows in a general way the main functionalities of the repository.
+The code uses some data and matfiles that are already available in the repository (./DATA). Anyway, more sequences and ground-truth can be found in the project site. The example file reconstructFlow also includes some comments to understand how the matfiles with the depth and the DAVIS, RGB-D sensor, and PTU calibration parameters have been computed. Note that, all the parameters should be re-computed with a  new configuration.
+
 Please report problems, bugs, or suggestions to
 fbarranco_at_ugr_dot_es (Replace _at_ by @ and _dot_ by .).
 
