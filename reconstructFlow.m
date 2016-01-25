@@ -20,8 +20,8 @@
 addpath('./inpaintZ');
 addpath('./inpaintZ/bmorph');
 
-pathname_davis = ('./sequences/');
-pathname_kinect = ('./sequences/');
+pathname_davis = ('./DATA/sequences/');
+pathname_kinect = ('./DATA/sequences/');
 
 %% First and last event in the DAVIS chunk for sequences: [seq_0001, seq_0002, seq_0003]
 %% This data can also be found in file: initial_final_events_of_DVSstream.txt
@@ -30,7 +30,12 @@ end_elem = [8078366, 13002116, 7761106];
 
 
 % Extract images and events from DAVIS data
-selected= dir(fullfile(pathname_davis, '*.aedat'));
+% (uncompress sequences in folder)
+selected= dir(fullfile(pathname_davis, '*.aedat')); 
+if (numel(selected)==0)
+    disp('Error: No .aedat files. Please, first uncompress the .7z sequences!')
+    return
+end
 %%
 for kk=1:numel(selected)
 
@@ -50,6 +55,7 @@ for kk=1:numel(selected)
     save(strcat(pathname_davis, name,'_e.mat'), 'x', 'y', 'pol', 'ts'); 
 end
 
+keyboard
 %%
 load('./DATA/matfiles/worksp', 'stereoParams'); % This is from the stereo calibration in ./additional/exp3.m between Davis and Kinect
 
@@ -72,26 +78,19 @@ for kk=1:numel(selected)
        % Registering Kinect depth to DAVIS frame of reference
        D(:,:,jj) =registerDepth(newDepth, stereoParams);
    end
-   save(strcat(pathname_kinect, '_d.mat'), 'D');
+   save(strcat(pathname_kinect, name, '_d.mat'), 'D');
 end
 
 %%
+addpath('./calibration/');
 load('./DATA/matfiles/worksp_ptu_calib', 'r_pan', 'r_tilt', 'v_pan', 'v_tilt','w_pan', 'w_tilt');
 load('./DATA/matfiles/worksp', 'stereoParams'); % This is from the stereo calibration in ./additional/exp3.m between Davis and Kinect
 cameraParams = stereoParams.CameraParameters1; % Davis is camera 1
 
-% Angles (and speeds) for [seq_0001, seq_0002, seq_0003]
-% More GT are available in file: ground-truth_3Dcam.txt
-% These values were taking from the PTU while capturing data
-%angle_pan = [0, 0, -0.15]/20; speed_pan = [0, 0, 0.15]/20;
-%angle_tilt = [0.15, -0.3, -0.3]/40; speed_tilt = [0.15, 0.15, 0.3]/20;
-
-angle_pan = [0, 0, -0.15]/20; speed_pan = [0, 0, 0.15]/20;
-angle_tilt = [0.15, -0.3, -0.3]/40; speed_tilt = [0.15, 0.15, 0.3]/20;
-
-%angle_pan = [0, 0, -0.15]/20; speed_pan = [0, 0, 0.15]/20;
-%angle_tilt = [0.15, -0.3, -0.3]/40; speed_tilt = [0.15, 0.15, 0.3]/20;
-
+% For sequences seq_0001 to seq_0003
+% The values for all the sequences are in file: pan_tilt_zoom_fromPTU.txt
+angle_pan = [0/20, 0/20, -0.15/20]; speed_pan = [0/20, 0/20, 0.15/20];
+angle_tilt = [0.15/20, -0.15/20, -0.3/20]; speed_tilt = [0.15/20, 0.075/20, 0.3/20];
 
 % Now, compute the rotation and translation in the PTU calibration framework
 for kk=1:numel(selected)
@@ -103,12 +102,14 @@ for kk=1:numel(selected)
 end
 
 % Change this name and nseq according to the sequence that is being used
+% name = 'seq_0001'; nseq =1;
 name = 'seq_0002'; nseq =2; 
+% name = 'seq_0003'; nseq =3;
 
 % For the first sequence, there is only tilt
 rvec = rtilt_vec{nseq}; 
 tvec = ttilt_vec{nseq};
-save(strcat(pathname_kinect, name,'_d.mat'), 'D');
+load(strcat(pathname_kinect, name,'_d.mat'), 'D');
 
 Depth = D(:,:,nseq);
 SCENE_NUM = [240 180]; % DAVIS spatial resolution
@@ -131,5 +132,10 @@ V = -((-ty*f(2) + tz.*Y)./(Z+eps) + 1/f(2) .* ((f(2)^2+Y.^2).*rx - X.*Y.*ry - f(
 addpath('./flow-code-matlab');
 flow(:,:,1)=U; flow(:,:,2)=V;
 img = flowToColor(flow);
-figure, imagesc(img(:,:,1)), title('X Flow Field')
-figure, imagesc(img(:,:,2)), title('Y Flow Field')
+figure, imagesc(img), title('Optical Flow Field') % Colors from Baker et al. 2011
+figure, imagesc(img(:,:,1)), title('X Flow Field') % Matlab colors
+figure, imagesc(img(:,:,2)), title('Y Flow Field') % Matlab colors
+
+disp('Vectors of rotation and translation)
+rvec
+tvec'
