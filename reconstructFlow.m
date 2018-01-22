@@ -127,27 +127,30 @@ for kk=1:numel(seq_index)
     X = (X - cameraParams.PrincipalPoint(1))./f(1);
     Y = (Y - cameraParams.PrincipalPoint(2))./f(2);
 
-    Z = abs(Depth);
+    for jj=1:size(D, 3)
+	Depth = D(:, :, jj);
+    	Z = abs(Depth);
 
-    % Calculate optical flow field with the instantaneous motion model
-    U_trans = ((-tvec(1) + tvec(3)*X)./(Z+eps))*f(1);
-    U_rot = (rvec(1)* X.*Y    - rvec(2)*(1+X.^2) + rvec(3)*Y)*f(1);
-    U = (-tvec(1) + tvec(3)*X)./(Z+eps) + rvec(1)* X.*Y    - rvec(2)*(1+X.^2) + rvec(3)*Y;
-    V_trans = ((-tvec(2) + tvec(3)*Y)./(Z+eps))*f(2);
-    V_rot = (rvec(1)*(1+Y.^2) - rvec(2)*X.*Y     - rvec(3)*X)*f(2);
-    V = (-tvec(2) + tvec(3)*Y)./(Z+eps) + rvec(1)*(1+Y.^2) - rvec(2)*X.*Y     - rvec(3)*X;
+    	% Calculate optical flow field with the instantaneous motion model
+    	U_trans = ((-tvec(1) + tvec(3)*X)./(Z+eps))*f(1);
+    	U_rot = (rvec(1)* X.*Y    - rvec(2)*(1+X.^2) + rvec(3)*Y)*f(1);
+    	U = (-tvec(1) + tvec(3)*X)./(Z+eps) + rvec(1)* X.*Y    - rvec(2)*(1+X.^2) + rvec(3)*Y;
+    	V_trans = ((-tvec(2) + tvec(3)*Y)./(Z+eps))*f(2);
+    	V_rot = (rvec(1)*(1+Y.^2) - rvec(2)*X.*Y     - rvec(3)*X)*f(2);
+    	V = (-tvec(2) + tvec(3)*Y)./(Z+eps) + rvec(1)*(1+Y.^2) - rvec(2)*X.*Y     - rvec(3)*X;
 
-    U = U*f(1); V = V*f(2);
+    	U = U*f(1); V = V*f(2);
 
-    % Print the optical flow field
+    	% Print the optical flow field
 	addpath('./flow-code-matlab');
 	flow(:,:,1)=U; flow(:,:,2)=-flipud(V);
 	img = flowToColor(flow);
-	figure, imagesc(img), title('Optical Flow Field') % Colors from Baker et al. 2011
-	figure, imagesc(img(:,:,1)), title('X Flow Field') % Matlab colors
-	figure, imagesc(img(:,:,2)), title('Y Flow Field') % Matlab colors
+	figure(1), imagesc(img), title('Optical Flow Field') % Colors from Baker et al. 2011
+	figure(2), imagesc(img(:,:,1)), title('X Flow Field') % Matlab colors
+	figure(3), imagesc(img(:,:,2)), title('Y Flow Field') % Matlab colors
 
-	disp('Vectors of rotation and translation)
+	disp('Vectors of rotation and translation')
 	rvec
 	tvec'
+    end
 end
