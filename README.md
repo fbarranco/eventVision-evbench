@@ -35,7 +35,7 @@ Frontiers in Neuroscience: Neuromorphic Engineering, 2015.
     }
 
 Some additional information is available at:
-http://atcproyectos.ugr.es/realtimeasoc/protected/evbench.html
+https://www.ugr.es/~cvrlab/projects/realtimeasoc/dataset/evbench.html
 
 ## Example ##
 
